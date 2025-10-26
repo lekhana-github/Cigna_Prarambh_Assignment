@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Product Total Calculator</title>
+  <style>
+    .hint { margin-top:.5rem; color:#666; font-size:.9rem; }
+    fieldset {
+      border: 2px solid #0b7285;
+      padding: 1rem;
+      border-radius: 6px;
+      background: rgba(223, 195, 195, 0.85);
+    }
+    legend {
+      padding: 0 .5rem;
+      font-weight: bold;
+      color: #04293a;
+    }
+    body{font-family:Segoe UI,Arial;max-width:700px;margin:2rem auto;padding:1rem}
+    label{display:block;margin:.5rem 0 .25rem}
+    input[type="number"], input[type="text"]{width:100%;padding:.5rem;box-sizing:border-box}
+    button{margin-top:.75rem;padding:.5rem 1rem}
+    .result{margin-top:1rem;padding:1rem;border:1px solid #ccc;border-radius:6px;background:#fafafa}
+  </style>
+</head>
+<body>
+    <fieldset>
+    <legend>Product Details</legend>
+  <h2>Product Details & Total Calculation</h2>
+
+  <form id="productForm" autocomplete="off">
+    <label for="pname">Product name</label>
+    <input id="pname" type="text" placeholder="e.g. Wireless Mouse" required>
+
+    <label for="price">Unit price (USD)</label>
+    <input id="price" type="number" min="0" step="0.01" value="0.00" required>
+
+    <label for="qty">Quantity</label>
+    <input id="qty" type="number" min="0" step="1" value="1" required>
+
+    <button id="calcBtn" type="submit">Calculate Total</button>
+    </fieldset>
+  </form>
+
+  <div id="output" class="result" aria-live="polite" style="display:none;"></div>
+
+  <script>
+    (function(){
+      const form = document.getElementById('productForm');
+      const priceEl = document.getElementById('price');
+      const qtyEl = document.getElementById('qty');
+      const nameEl = document.getElementById('pname');
+      const out = document.getElementById('output');
+      const btn = document.getElementById('calcBtn');
+
+      function getDiscountPercent(qty){
+        if(qty > 30) return 0.20;
+        if(qty > 20) return 0.15;
+        if(qty > 10) return 0.10;
+        return 0;
+      }
+
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+
+        const proceed = confirm('Proceed to calculate total?');
+        if(!proceed) return;
+
+        const price = parseFloat(priceEl.value) || 0;
+        const qty = parseInt(qtyEl.value, 10) || 0;
+        const pname = (nameEl.value || '').trim() || 'Product';
+
+        if(price < 0 || qty < 0){
+          alert('Price and quantity must be non-negative.');
+          return;
+        }
+
+        const subtotal = +(price * qty).toFixed(2);
+        const discPercent = getDiscountPercent(qty);
+        const discount = +(subtotal * discPercent).toFixed(2);
+        const total = +(subtotal - discount).toFixed(2);
+
+        out.style.display = 'block';
+        out.innerHTML = `
+          <strong>${pname}</strong><br>
+          Unit price: $${price.toFixed(2)}<br>
+          Quantity: ${qty}<br>
+          Subtotal: $${subtotal.toFixed(2)}<br>
+          Discount: ${Math.round(discPercent * 100)}% &nbsp;(-$${discount.toFixed(2)})<br>
+          <hr>
+          <strong>Total: $${total.toFixed(2)}</strong>
+        `;
+
+        alert('Total amount: $' + total.toFixed(2));
+      });
+    })();
+  </script>
+</body>
+</html>
