@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Functions Demo</title>
+  <style>
+
+    .hint { margin-top:.5rem; color:#666; font-size:.9rem; }
+    fieldset {
+      border: 2px solid #0b7285;
+      padding: 1rem;
+      border-radius: 6px;
+      background: rgba(223, 195, 195, 0.85);
+    }
+    legend {
+      padding: 0 .5rem;
+      font-weight: bold;
+      color: #04293a;
+    }
+    body{font-family:Segoe UI,Arial;max-width:760px;margin:2rem auto;padding:1rem}
+    fieldset{margin-bottom:1rem;padding:1rem;border-radius:6px}
+    label{display:block;margin:.4rem 0 .15rem}
+    input[type="number"], input[type="text"], textarea{width:100%;padding:.45rem;box-sizing:border-box}
+    button{margin-top:.5rem;padding:.45rem .8rem}
+    .out{margin-top:.6rem;padding:.6rem;border-radius:6px;background:#f7f7f7;border:1px solid #ddd}
+  </style>
+</head>
+<body>
+  <h1>Functions with UI</h1>
+
+  <fieldset>
+    <legend>Average (total marks / no. of subjects)</legend>
+    <label for="totalMarks">Total Marks</label>
+    <input id="totalMarks" type="number" min="0" step="0.01" value="450">
+
+    <label for="numSubjects">Number of Subjects</label>
+    <input id="numSubjects" type="number" min="1" step="1" value="5">
+
+    <button id="avgBtn" type="button">Compute Average</button>
+    <div id="avgOut" class="out" aria-live="polite" style="display:none"></div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Power (x ^ y)</legend>
+    <label for="baseX">Base (x)</label>
+    <input id="baseX" type="number" step="any" value="2">
+
+    <label for="expY">Exponent (y)</label>
+    <input id="expY" type="number" step="any" value="8">
+
+    <button id="powBtn" type="button">Calculate Power</button>
+    <div id="powOut" class="out" aria-live="polite" style="display:none"></div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Word Count (count words in a string)</legend>
+    <label for="textInput">Enter text</label>
+    <textarea id="textInput" rows="4" placeholder="Type or paste text here...">Hello world! This is a sample string.</textarea>
+
+    <button id="wcBtn" type="button">Count Words</button>
+    <div id="wcOut" class="out" aria-live="polite" style="display:none"></div>
+  </fieldset>
+
+  <script>
+    // Core functionality functions (pure logic)
+    function average(totalMarks, subjects) {
+      if (!isFinite(totalMarks) || !isFinite(subjects) || subjects <= 0) return NaN;
+      return totalMarks / subjects;
+    }
+
+    function power(x, y) {
+      // uses Math.pow to handle fractional/negative exponents
+      return Math.pow(x, y);
+    }
+
+    function wordCount(text) {
+      if (text == null) return 0;
+      // split on whitespace, filter out empty tokens
+      return text.trim().split(/\s+/).filter(Boolean).length;
+    }
+
+    // Button click handlers (read UI, call functionality, and render)
+    function onAverageClick() {
+      const total = parseFloat(document.getElementById('totalMarks').value);
+      const subs = parseInt(document.getElementById('numSubjects').value, 10);
+      const outEl = document.getElementById('avgOut');
+
+      if (!isFinite(total) || !isFinite(subs) || subs <= 0) {
+        outEl.style.display = 'block';
+        outEl.textContent = 'Please enter a valid total marks and a positive number of subjects.';
+        return;
+      }
+
+      const avg = average(total, subs);
+      outEl.style.display = 'block';
+      outEl.innerHTML = 'Total Marks: ' + total + '<br>' +
+                        'Number of Subjects: ' + subs + '<br>' +
+                        '<strong>Average: ' + avg.toFixed(2) + '</strong>';
+    }
+
+    function onPowerClick() {
+      const x = parseFloat(document.getElementById('baseX').value);
+      const y = parseFloat(document.getElementById('expY').value);
+      const outEl = document.getElementById('powOut');
+
+      if (!isFinite(x) || !isFinite(y)) {
+        outEl.style.display = 'block';
+        outEl.textContent = 'Please enter valid numeric values for x and y.';
+        return;
+      }
+
+      const result = power(x, y);
+      outEl.style.display = 'block';
+      outEl.innerHTML = x + ' ^ ' + y + ' = <strong>' + result + '</strong>';
+    }
+
+    function onWordCountClick() {
+      const text = document.getElementById('textInput').value || '';
+      const outEl = document.getElementById('wcOut');
+
+      const count = wordCount(text);
+      outEl.style.display = 'block';
+      outEl.innerHTML = 'Input string:<br><em>' + (text.length ? text.replace(/</g,'&lt;') : '(empty)') + '</em><br>' +
+                        '<strong>Word count: ' + count + '</strong>';
+    }
+
+    // Wire up UI events
+    document.getElementById('avgBtn').addEventListener('click', onAverageClick);
+    document.getElementById('powBtn').addEventListener('click', onPowerClick);
+    document.getElementById('wcBtn').addEventListener('click', onWordCountClick);
+  </script>
+</body>
+</html>
