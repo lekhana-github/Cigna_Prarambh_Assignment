@@ -1,1 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pizza Order Form</title>
+</head>
+<body>
+    <h2>Pizza Order Form</h2>
+    <form action="process_payment.html" method="post">
+        <label for="name">Customer Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
 
+        <label>Choose Pizza Size:</label><br>
+        <input type="radio" name="size" value="Small"> Small
+        <input type="radio" name="size" value="Medium"> Medium
+        <input type="radio" name="size" value="Large"> Large<br><br>
+
+        <label>Select Toppings:</label><br>
+        <input type="checkbox" name="topping" value="Cheese"> Extra Cheese
+        <input type="checkbox" name="topping" value="Mushrooms"> Mushrooms
+        <input type="checkbox" name="topping" value="Olives"> Olives
+        <input type="checkbox" name="topping" value="Paneer"> Paneer<br><br>
+
+        <label for="address">Delivery Address:</label><br>
+        <textarea id="address" name="address" rows="3" cols="30" required></textarea><br><br>
+
+        <label for="phone">Contact Number:</label><br>
+        <input type="tel" id="phone" name="phone" maxlength="10" required><br><br>
+
+        <input type="submit" value="Place Order">
+        <input type="reset" value="Cancel">
+    </form>
+</body>
+</html>
