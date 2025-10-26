@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Meal Cost Calculator</title>
+  <style>
+    body{font-family:Segoe UI, Arial;max-width:600px;margin:2rem auto;padding:1rem}
+    label{display:block;margin:.5rem 0 .25rem}
+    input[type="number"]{width:100%;padding:.5rem;box-sizing:border-box}
+    button{margin-top:.75rem;padding:.5rem 1rem}
+    .result{margin-top:1rem;padding:1rem;border:1px solid #ddd;border-radius:6px;background:#fafafa}
+    .row{margin:.25rem 0}
+    .muted{color:#555;font-size:.95rem}
+  </style>
+</head>
+<body>
+  <h2>Meal Total Calculator</h2>
+
+  <form id="mealForm" autocomplete="off">
+    <label for="base">Meal Base Cost (USD)</label>
+    <input id="base" type="number" min="0" step="0.01" value="25.00" required>
+
+    <button id="calc" type="submit">Calculate</button>
+    <button id="clear" type="button">Clear</button>
+  </form>
+
+  <div id="output" class="result" style="display:none" aria-live="polite">
+    <div class="row"><strong>Meal Base Cost:</strong> <span id="outBase" class="muted"></span></div>
+    <div class="row"><strong>Tip Amount (10%):</strong> <span id="outTip" class="muted"></span></div>
+    <div class="row"><strong>Tax Amount (8%):</strong> <span id="outTax" class="muted"></span></div>
+    <hr>
+    <div class="row"><strong>Total Amount (rounded):</strong> <span id="outTotal" class="muted"></span></div>
+  </div>
+
+  <script>
+    (function(){
+      const TIP_RATE = 0.10;
+      const TAX_RATE = 0.08;
+
+      const form = document.getElementById('mealForm');
+      const baseEl = document.getElementById('base');
+      const out = document.getElementById('output');
+      const outBase = document.getElementById('outBase');
+      const outTip = document.getElementById('outTip');
+      const outTax = document.getElementById('outTax');
+      const outTotal = document.getElementById('outTotal');
+      const clearBtn = document.getElementById('clear');
+
+      function formatUSD(v){ return '$' + Number(v).toFixed(2); }
+
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        const base = parseFloat(baseEl.value);
+        if (!isFinite(base) || base < 0) {
+          alert('Please enter a valid non-negative base cost.');
+          return;
+        }
+
+        const tip = base * TIP_RATE;
+        const tax = base * TAX_RATE;
+        const total = base + tip + tax;
+        const roundedTotal = Math.round(total);
+
+        outBase.textContent = formatUSD(base);
+        outTip.textContent = formatUSD(tip);
+        outTax.textContent = formatUSD(tax);
+        outTotal.textContent = formatUSD(roundedTotal) + ' (rounded from ' + formatUSD(total) + ')';
+
+        out.style.display = 'block';
+      });
+
+      clearBtn.addEventListener('click', function(){
+        baseEl.value = '';
+        out.style.display = 'none';
+      });
+    })();
+  </script>
+</body>
+</html>
