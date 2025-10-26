@@ -1,0 +1,171 @@
+<!-- 1.   Create a web page to implement the following requirement using JavaScript.
+		a.   Create a collection of course names using array
+		b.   Provide separate buttons to perform : Show , Add, Remove
+		c.    Show -- display the avaialbel courses in list format
+		d.    Add --  add new course (read course name from user using textbox)
+		e.    Remove --  remove the course that entered in textbox 
+		
+
+2.   Update the Array of Students Objects Example (i.e Eg-7)  so that display the details in table format. 
+
+3.  Add the following requirement on the above example. Filter the data based on the course. 
+	Hint :  Use filter() method to filter data -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Course Management System</title>
+    <style>
+        .container { margin: 20px; }
+        .section { margin-bottom: 30px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid black; padding: 8px; text-align: left; }
+
+         fieldset {
+      border: 2px solid #0b7285;
+      padding: 1rem;
+      border-radius: 6px;
+      background: rgba(223, 195, 195, 0.85);
+    }
+    legend {
+      padding: 0 .5rem;
+      font-weight: bold;
+      color: #04293a;
+    }
+    </style>
+</head>
+<body>
+    <fieldset>
+    <legend>Course Management Section</legend>
+    <div class="container">
+        <!-- Course Management Section -->
+        <div class="section">
+            <h2>Course Management</h2>
+            <input type="text" id="courseName" placeholder="Enter course name">
+            <button onclick="showCourses()">Show Courses</button>
+            <button onclick="addCourse()">Add Course</button>
+            <button onclick="removeCourse()">Remove Course</button>
+            <ul id="courseList"></ul>
+        </div>
+
+        <!-- Student Management Section -->
+        <div class="section">
+            <h2>Student Management</h2>
+            <select id="courseFilter" onchange="filterStudents()">
+                <option value="all">All Courses</option>
+            </select>
+            <div id="studentTable"></div>
+        </div>
+    </div>
+
+    <script>
+        // Course array
+        let courses = ['JavaScript', 'Python', 'Java'];
+
+        // Students array
+        let students = [
+            { id: 1, name: 'John', course: 'JavaScript', grade: 'A' },
+            { id: 2, name: 'Jane', course: 'Python', grade: 'B' },
+            { id: 3, name: 'Bob', course: 'Java', grade: 'A' },
+            { id: 4, name: 'Alice', course: 'JavaScript', grade: 'C' }
+        ];
+
+        // Initialize course filter dropdown
+        function initializeCourseFilter() {
+            let dropdown = document.getElementById('courseFilter');
+            courses.forEach(course => {
+                let option = document.createElement('option');
+                option.value = course;
+                option.text = course;
+                dropdown.appendChild(option);
+            });
+        }
+
+        // Course Management Functions
+        function showCourses() {
+            let list = document.getElementById('courseList');
+            list.innerHTML = '';
+            courses.forEach(course => {
+                let li = document.createElement('li');
+                li.textContent = course;
+                list.appendChild(li);
+            });
+        }
+
+        function addCourse() {
+            let courseInput = document.getElementById('courseName');
+            let newCourse = courseInput.value.trim();
+            if (newCourse && !courses.includes(newCourse)) {
+                courses.push(newCourse);
+                courseInput.value = '';
+                showCourses();
+                updateCourseFilter();
+            }
+        }
+
+        function removeCourse() {
+            let courseInput = document.getElementById('courseName');
+            let courseToRemove = courseInput.value.trim();
+            let index = courses.indexOf(courseToRemove);
+            if (index > -1) {
+                courses.splice(index, 1);
+                courseInput.value = '';
+                showCourses();
+                updateCourseFilter();
+            }
+        }
+
+        // Student Management Functions
+        function displayStudents(studentList) {
+            let tableDiv = document.getElementById('studentTable');
+            let html = `
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Course</th>
+                        <th>Grade</th>
+                    </tr>`;
+            
+            studentList.forEach(student => {
+                html += `
+                    <tr>
+                        <td>${student.id}</td>
+                        <td>${student.name}</td>
+                        <td>${student.course}</td>
+                        <td>${student.grade}</td>
+                    </tr>`;
+            });
+            html += '</table>';
+            tableDiv.innerHTML = html;
+        }
+
+        function filterStudents() {
+            let selectedCourse = document.getElementById('courseFilter').value;
+            let filteredStudents = selectedCourse === 'all' 
+                ? students 
+                : students.filter(student => student.course === selectedCourse);
+            displayStudents(filteredStudents);
+        }
+
+        function updateCourseFilter() {
+            let dropdown = document.getElementById('courseFilter');
+            dropdown.innerHTML = '<option value="all">All Courses</option>';
+            courses.forEach(course => {
+                let option = document.createElement('option');
+                option.value = course;
+                option.text = course;
+                dropdown.appendChild(option);
+            });
+        }
+
+        // Initialize the page
+        window.onload = function() {
+            initializeCourseFilter();
+            displayStudents(students);
+        };
+    </script>
+
+    </fieldset>
+</body>
+</html>
