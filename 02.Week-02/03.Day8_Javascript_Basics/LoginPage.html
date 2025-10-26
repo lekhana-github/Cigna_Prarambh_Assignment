@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login Page</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 2rem; max-width: 420px;  background:#2ed3ec; margin: auto; }
+    label { display:block; margin: .5rem 0 .25rem; }
+    input[type="text"], input[type="password"] { width:100%; padding:.5rem; box-sizing:border-box; }
+    button { margin-top: 1rem; padding:.6rem 1rem; font-size:1rem; }
+    /* CSS for disabled state */
+    button:disabled,
+    button.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      background:#2ed3ec;
+      color:#21281b;
+    }
+    .hint { margin-top:.5rem; color:#666; font-size:.9rem; }
+    fieldset {
+      border: 2px solid #0b7285;
+      padding: 1rem;
+      border-radius: 6px;
+      background: rgba(255,255,255,0.85);
+    }
+    legend {
+      padding: 0 .5rem;
+      font-weight: bold;
+      color: #04293a;
+    }
+  </style>
+</head>
+<body>
+  <h2>Login</h2>
+  <form id="loginForm" autocomplete="off">
+    <fieldset>
+    <legend>Sign in</legend>
+    <label for="username">Username</label>
+    <input id="username" name="username" type="text" value="user1" />
+
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" />
+
+    <button id="loginBtn" type="submit">Login</button>
+    <div class="hint" id="attemptsHint">You have 3 attempts.</div>
+    </fieldset>
+  </form>
+
+  <script>
+    (function () {
+      const correctPassword = 'password123'; // sample check
+      const maxAttempts = 3;
+      let attempts = 0;
+
+      const form = document.getElementById('loginForm');
+      const pwd = document.getElementById('password');
+      const btn = document.getElementById('loginBtn');
+      const hint = document.getElementById('attemptsHint');
+
+      function updateHint() {
+        const remaining = Math.max(0, maxAttempts - attempts);
+        hint.textContent = remaining > 0
+          ? `You have ${remaining} attempt(s) left.`
+          : 'No attempts left. Login disabled.';
+      }
+
+      function lockOut() {
+        // disable via HTML attribute (affects markup), and apply CSS class
+        btn.disabled = true;
+        btn.classList.add('disabled');
+        alert('Too many failed attempts. Login has been disabled.');
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (btn.disabled) return;
+
+        if (pwd.value === correctPassword) {
+          alert('Login successful.');
+          // reset attempts or proceed to next step
+          attempts = 0;
+          updateHint();
+        } else {
+          attempts++;
+          if (attempts >= maxAttempts) {
+            lockOut();
+          } else {
+            alert('Wrong password. Please try again.');
+          }
+          updateHint();
+        }
+      });
+
+      // initialize hint
+      updateHint();
+    })();
+  </script>
+</body>
+</html>
