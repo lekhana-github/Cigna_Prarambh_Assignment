@@ -1,1 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Credit Card Payment</title>
+</head>
+<body>
+    <h2>Credit Card Payment</h2>
+    
+    <form action="process_payment.html" method="post">
+        <label for="name">Cardholder Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
 
+        <label for="cardnumber">Card Number:</label><br>
+        <input type="text" id="cardnumber" name="cardnumber" maxlength="16" required><br><br>
+
+        <label for="exp">Expiry Date:</label><br>
+        <input type="month" id="exp" name="exp" required><br><br>
+
+        <label for="cvv">CVV:</label><br>
+        <input type="password" id="cvv" name="cvv" maxlength="3" required><br><br>
+
+        <label for="amount">Amount:</label><br>
+        <input type="number" id="amount" name="amount" required><br><br>
+
+        <input type="submit" value="Pay Now">
+        <input type="reset" value="Reset">
+    </form>
+</body>
+</html>
