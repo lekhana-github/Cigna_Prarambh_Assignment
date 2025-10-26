@@ -1,1 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Shopping Cart</title>
+    <style>
+        /* General Page Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
 
+        header {
+            background-color: #343a40;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #495057;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ffc107;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #212529;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            justify-items: center;
+        }
+
+        /* Product Card */
+        .product-card {
+            background-color: white;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            padding: 15px;
+            text-align: center;
+            width: 100%;
+            max-width: 250px;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .product-name {
+            font-size: 1.1em;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+
+        .product-desc {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 1em;
+            font-weight: 600;
+            color: #198754;
+            margin-bottom: 10px;
+        }
+
+        /* Add to Cart Button */
+        .btn {
+            background-color: #0d6efd;
+            color: white;
+            padding: 8px 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .btn:hover {
+            background-color: #0b5ed7;
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .product-card img {
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2>🛍️ My Shopping Cart</h2>
+    </header>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Shop</a>
+        <a href="#">Cart</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <main>
+        <h1>Featured Products</h1>
+
+        <section class="product-grid">
+            <!-- Product 1 -->
+            <article class="product-card">
+                <img src="https://images.unsplash.com/photo-1612858249937-1cc0852093dd?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8V2lyZWxlc3MlMjBIZWFkcGhvbmVzfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=1000" alt="Headphones">
+                <p class="product-name">Wireless Headphones</p>
+                <p class="product-desc">High-quality sound with long battery life.</p>
+                <p class="price">₹2,499</p>
+                <button class="btn">Add to Cart</button>
+            </article>
+
+            <!-- Product 2 -->
+            <article class="product-card">
+                <img src="https://images.unsplash.com/photo-1660844817855-3ecc7ef21f12?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8U21hcnR3YXRjaHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=1000" alt="Smartwatch">
+                <p class="product-name">Smartwatch</p>
+                <p class="product-desc">Track fitness, calls, and messages easily.</p>
+                <p class="price">₹3,999</p>
+                <button class="btn">Add to Cart</button>
+            </article>
+
+            <!-- Product 3 -->
+            <article class="product-card">
+                <img src="https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8VHJhdmVsJTIwQmFja3BhY2t8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&q=60&w=1000" alt="Backpack">
+                <p class="product-name">Travel Backpack</p>
+                <p class="product-desc">Stylish and comfortable for long trips.</p>
+                <p class="price">₹1,299</p>
+                <button class="btn">Add to Cart</button>
+            </article>
+
+            <!-- Product 4 -->
+            <article class="product-card">
+                <img src="https://images.unsplash.com/photo-1562183241-b937e95585b6?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8UnVubmluZyUyMFNob2VzfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=1000" alt="Shoes">
+                <p class="product-name">Running Shoes</p>
+                <p class="product-desc">Lightweight and durable for daily use.</p>
+                <p class="price">₹2,899</p>
+                <button class="btn">Add to Cart</button>
+            </article>
+
+            <!-- Product 5 -->
+            <article class="product-card">
+                <img src="https://images.unsplash.com/photo-1698502453332-03fa2ddceb71?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8RGlnaXRhbCUyMENhbWVyYXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=1000" alt="Camera">
+                <p class="product-name">Digital Camera</p>
+                <p class="product-desc">Capture moments in high-definition clarity.</p>
+                <p class="price">₹5,999</p>
+                <button class="btn">Add to Cart</button>
+            </article>
+
+            <!-- Product 6 -->
+            <article class="product-card">
+                <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fExhcHRvcHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=1000" alt="Laptop">
+                <p class="product-name">Laptop</p>
+                <p class="product-desc">Powerful and portable for your daily work.</p>
+                <p class="price">₹45,999</p>
+                <button class="btn">Add to Cart</button>
+            </article>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <p>© 2025 My Shopping Cart. All rights reserved.</p>
+    </footer>
+</body>
+</html>
