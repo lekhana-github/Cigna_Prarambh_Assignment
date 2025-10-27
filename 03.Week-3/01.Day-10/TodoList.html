@@ -1,0 +1,96 @@
+<!-- 1. Update the ToDoList Example with the following requirement. 
+
+		a.   Add a hyperlink in LI for delete the task.
+		b.   Implement functionality to delete the current task that you have selected
+         -->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Delegation Example</title>
+  <style>
+    ul#list1 { border:2px solid blue; padding:30px; list-style-position: inside; }
+    ul#list1 li { margin: .4rem 0; }
+    ul#list1 a.delete { margin-left: 12px; color: red; text-decoration: none; font-size: 0.9rem; }
+    ul#list1 a.delete:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+    <h3>Adding Events Dynamically in JavaScript</h3>
+    <hr/>
+
+    <fieldset>
+        <legend>Tasks in my Hand</legend>
+        <ul id="list1">
+            <li>Send E-mail <a href="#" class="delete" aria-label="delete task">Delete</a></li>
+            <li>Do Shopping <a href="#" class="delete" aria-label="delete task">Delete</a></li>
+        </ul>
+
+    </fieldset>
+  <br/>
+  <input  id="t1" placeholder="New Task Info..." type="text"  />
+  <button id="addButton">Add Task</button>
+
+  <script>
+
+    const listObj = document.getElementById("list1");
+    const btnObj = document.getElementById("addButton");
+
+    // Delegated click handler handles both toggle and delete
+    listObj.addEventListener("click", function(event)
+    {
+        const target = event.target;
+
+        // If Delete link clicked -> remove the containing LI
+        if (target.matches("a.delete")) {
+            event.preventDefault();
+            const li = target.closest("li");
+            if (li) {
+                listObj.removeChild(li);
+            }
+            return;
+        }
+
+        // If clicked on an LI (or inside it but not on delete link) -> toggle line-through
+        const li = target.closest("li");
+        if (li && listObj.contains(li)) {
+          if( li.style.textDecoration == "line-through")
+          {
+             li.style.textDecoration = "none";
+          }
+          else
+          {
+            li.style.textDecoration = "line-through";
+          }
+        }
+    });
+
+    // Add new task with a Delete link
+    btnObj.addEventListener("click", function(event)
+    {
+         const textObj = document.getElementById("t1");
+         const value = (textObj.value || "").trim();
+         if (!value) {
+           alert("Please enter a task.");
+           return;
+         }
+
+         const listItemObj = document.createElement("li");
+         listItemObj.textContent = value + " ";
+
+         const delLink = document.createElement("a");
+         delLink.href = "#";
+         delLink.className = "delete";
+         delLink.setAttribute("aria-label", "delete task");
+         delLink.textContent = "Delete";
+
+         listItemObj.appendChild(delLink);
+         listObj.appendChild(listItemObj);
+
+         textObj.value = "";
+         textObj.focus();
+    });
+  </script>
+</body>
+</html>
