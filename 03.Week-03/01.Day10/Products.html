@@ -1,0 +1,139 @@
+<!-- 3.   Create a web page to add product details div at runtime. 
+
+		a.   Create a  section tag in html page to hold all produts
+		b.   Create button "Add Product"
+		c.    Each product should be placed in separate  Div tag 
+		d.   Inside the Div tag :     img tag, span for product name ,  p tag for description
+		e.   Use all dynamic options to create the required tags and add to section tag. 
+		
+		Optional :   Apply styles if required so that each product div should  display side by side.  -->
+
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Dynamic Products</title>
+  <style>
+    body{font-family:Segoe UI,Arial;max-width:1000px;margin:1.5rem auto;padding:1rem}
+    .controls{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;align-items:end}
+    .controls label{display:block;font-size:.85rem;color:#333}
+    .controls input[type="text"], .controls textarea{padding:.4rem;border:1px solid #ccc;border-radius:4px;width:220px;box-sizing:border-box}
+    .controls textarea{height:64px;resize:vertical}
+    button{padding:.45rem .8rem;border-radius:4px;border:1px solid #0b7285;background:#0b7285;color:#fff;cursor:pointer}
+    section#products{display:flex;gap:12px;flex-wrap:wrap}
+    .product{width:220px;border:1px solid #ddd;border-radius:6px;overflow:hidden;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.05)}
+    .product img{width:100%;height:140px;object-fit:cover;background:#f4f4f4}
+    .product .meta{padding:.5rem}
+    .product .name{display:block;font-weight:600;margin-bottom:.25rem}
+    .product .desc{font-size:.9rem;color:#444;margin:0}
+    .hint{color:#555;font-size:.9rem;margin-bottom:.5rem}
+  </style>
+</head>
+<body>
+  <h2>Add Products (created at runtime)</h2>
+
+  <p class="hint">Enter product details and click "Add Product". Each product is created dynamically and added to the section below.</p>
+
+  <div class="controls" aria-label="Add product form">
+    <div>
+      <label for="pname">Product Name</label>
+      <input id="pname" type="text" placeholder="e.g. Wireless Mouse">
+    </div>
+
+    <div>
+      <label for="pimg">Image URL</label>
+      <input id="pimg" type="text" placeholder="https://... (optional)">
+    </div>
+
+    <div style="min-width:260px">
+      <label for="pdesc">Description</label>
+      <textarea id="pdesc" placeholder="Short description"></textarea>
+    </div>
+
+    <div>
+      <button id="addProductBtn" type="button">Add Product</button>
+    </div>
+  </div>
+
+  <section id="products" aria-live="polite" aria-label="Products listing">
+    <!-- dynamically created product divs will be appended here -->
+  </section>
+
+  <script>
+    (function(){
+      const productsSection = document.getElementById('products');
+      const btn = document.getElementById('addProductBtn');
+      const nameInput = document.getElementById('pname');
+      const imgInput = document.getElementById('pimg');
+      const descInput = document.getElementById('pdesc');
+
+      const placeholderImg = 'https://via.placeholder.com/400x300?text=No+Image';
+
+      function createProductCard(name, imgUrl, desc) {
+        // create container div
+        const card = document.createElement('div');
+        card.className = 'product';
+
+        // image
+        const image = document.createElement('img');
+        image.src = imgUrl || placeholderImg;
+        image.alt = name || 'Product image';
+        card.appendChild(image);
+
+        // meta container
+        const meta = document.createElement('div');
+        meta.className = 'meta';
+
+        const spanName = document.createElement('span');
+        spanName.className = 'name';
+        spanName.textContent = name || 'Unnamed product';
+        meta.appendChild(spanName);
+
+        const pDesc = document.createElement('p');
+        pDesc.className = 'desc';
+        pDesc.textContent = desc || '';
+        meta.appendChild(pDesc);
+
+        // append meta to card
+        card.appendChild(meta);
+
+        return card;
+      }
+
+      function clearInputs() {
+        nameInput.value = '';
+        imgInput.value = '';
+        descInput.value = '';
+        nameInput.focus();
+      }
+
+      btn.addEventListener('click', function(){
+        const name = (nameInput.value || '').trim();
+        const img = (imgInput.value || '').trim();
+        const desc = (descInput.value || '').trim();
+
+        if (!name) {
+          alert('Please enter a product name.');
+          nameInput.focus();
+          return;
+        }
+
+        // create product card via DOM methods and append to section
+        const card = createProductCard(name, img, desc);
+        productsSection.appendChild(card);
+
+        clearInputs();
+      });
+
+      // Optional: add sample products on first load (demonstrates dynamic creation)
+      const samples = [
+        {name:'Bluetooth Headphones', img:"https://images.unsplash.com/photo-1612858249937-1cc0852093dd?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8V2lyZWxlc3MlMjBIZWFkcGhvbmVzfGVufDB8fDB8fHww&auto=format&fit=crop&q=60&w=1000", desc:'Comfortable over-ear headphones with noise cancellation.'},
+        {name:'Mechanical Keyboard', img:'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=60', desc:'RGB backlit keyboard with tactile switches.'}
+      ];
+      samples.forEach(s => productsSection.appendChild(createProductCard(s.name, s.img, s.desc)));
+    })();
+  </script>
+</body>
+</html>
