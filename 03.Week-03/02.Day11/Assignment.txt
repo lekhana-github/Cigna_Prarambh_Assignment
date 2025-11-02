@@ -1,0 +1,24 @@
+ 1.Check the following points from React:
+
+		a. What are keys in React? How to use?
+-->Keys are special string attributes that help React identify which items in a list have changed, been added, or been removed. They are crucial for efficient updates when rendering dynamic lists of components. When iterating over an array to render a list of elements, each element should be assigned a unique key prop.
+		b. Study about Virtual DOM 
+-->The Virtual DOM (VDOM) is a lightweight, in-memory representation of the actual DOM. React creates a VDOM tree that mirrors the structure of the UI components. When a component's state or props change, React first updates the VDOM.
+		c.  Physical DOM vs Virtual DOM 
+-->Physical DOM: This is the actual Document Object Model that web browsers use to represent the structure and content of a web page. Manipulating the physical DOM directly can be slow and performance-intensive.
+Virtual DOM: This is an abstract, lightweight copy of the physical DOM maintained by React. React uses the VDOM to optimize updates. When changes occur, React compares the new VDOM with the previous one (a process called "diffing") and calculates the most efficient way to update only the necessary parts of the physical DOM. This minimizes direct DOM manipulation, leading to better performance.
+ 2.How to create class components in React.  Create Hello World component using Class concept. 
+Class components are ES6 classes that extend React.Component and have a render() method that returns JSX.
+import React from 'react';
+
+class HelloWorld extends React.Component {
+  render() {
+    return (
+      <div>
+        <h1>Hello, World!</h1>
+      </div>
+    );
+  }
+}
+
+export default HelloWorld;
