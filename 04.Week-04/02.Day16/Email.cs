@@ -1,3 +1,10 @@
+// 1.   Create  a C# program to implement the following requirement :  
+// 				a.  Build an Email Sender simulator to explore default, and optional parameters in C#. 
+// 				b.  The method should allow flexible calling with or without specifying all arguments. 
+// 				c.  Parameters:  Sender, Recipient, Subject, Message, IsImportant
+				
+// 				Hint : Only one method to define the address the requirement
+
 using System.Security;
 
 namespace Day16
