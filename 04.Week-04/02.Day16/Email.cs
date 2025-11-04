@@ -12,12 +12,7 @@ namespace Day16
     internal class Email
     {
         // Method with optional parameters
-        static void SendEmail(
-            string sender,
-            string recipient,
-            string subject = "No Subject",
-            string message = "No Message",
-            bool isImportant = false)
+        static void SendEmail( string sender, string recipient, string subject = "No Subject", string message = "No Message",bool isImportant = false)
         {
             Console.WriteLine("----- Email Details -----");
             Console.WriteLine($"From: {sender}");
