@@ -22,16 +22,16 @@ namespace Day16
 
         static void Log(string message, string level)
         {
-            Console.WriteLine($"[{level.ToUpper()}]: {message}");
+            Console.WriteLine($"[{level}]: {message}");
         }
 
         static void Log(string message, string level, bool withTimestamp)
         {
             string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             if (withTimestamp)
-                Console.WriteLine($"[{timestamp}] [{level.ToUpper()}]: {message}");
+                Console.WriteLine($"[{timestamp}] [{level}]: {message}");
             else
-                Console.WriteLine($"[{level.ToUpper()}]: {message}");
+                Console.WriteLine($"[{level}]: {message}");
         }
         static void Main(string[] args)
         {
