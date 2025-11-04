@@ -1,6 +1,5 @@
 // 4.  Create a c# program to Read Array of numbers from the user and try to catch the possible exceptions using try..catch block.
 
-using System.Security;
 
 namespace Day16
 {
