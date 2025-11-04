@@ -13,7 +13,7 @@ namespace Day16
     internal class AreaCalculator
     {
         // Overloaded methods for area calculations
-        static double CalculateArea(double side) // Square
+        static int CalculateArea(int side) // Square
         {
             return side * side;
         }
@@ -23,7 +23,7 @@ namespace Day16
             return length * width;
         }
 
-        static double CalculateArea(double radius, bool isCircle) // Circle
+        static double CalculateArea(double radius) // Circle
         {
             return Math.PI * radius * radius;
         }
@@ -35,7 +35,7 @@ namespace Day16
 
             Console.WriteLine("Area of Square");
             Console.Write("Enter side: ");
-            double side = Convert.ToDouble(Console.ReadLine());
+            int side = Convert.ToInt32(Console.ReadLine());
             area = CalculateArea(side);
             Console.WriteLine($"Area = {area:F2}");
 
@@ -54,7 +54,7 @@ namespace Day16
             Console.WriteLine("Area of Circle");
             Console.Write("Enter radius: ");
             double radius = Convert.ToDouble(Console.ReadLine());
-            area = CalculateArea(radius, true);
+            area = CalculateArea(radius);
             Console.WriteLine($"Area = {area:F2}");  
         }       
     }
