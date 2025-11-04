@@ -1,8 +1,8 @@
 using System.Security;
 
-namespace Email
+namespace Day16
 {
-    internal class Program
+    internal class Email
     {
         // Method with optional parameters
         static void SendEmail(
