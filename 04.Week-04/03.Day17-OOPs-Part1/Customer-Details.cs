@@ -1,3 +1,15 @@
+// 1. Write a C# program to process customer details:  
+// 		Class Name :	Customer
+// 		•	Class should allow the following parameters in constructor
+// 				Customer c1  = new Customer();
+// 				Customer c2  = new Customer(10256);
+// 				Customer c3  = new Customer(10256, “Scott”);
+// 				Customer c4  = new Customer(10256, “Scott”, “Hyd”);
+
+// 		•	Declare required number of variables in the class. 
+// 		•	Method :  ShowDetails() to display all the values in single Line.
+// 			Eg:	Customer Details  ::   Id : 10256, Name : Scott, City : Hyd
+
 namespace ObjectOrientedProgramming
 {
 
