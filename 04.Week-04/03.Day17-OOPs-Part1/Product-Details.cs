@@ -7,9 +7,9 @@
 // 				-->  display the details using properties
 
 
-	Eg:    Product obj = new Product();	
-			 obj.ProductId  =  int.Parse(Console.ReadLine());			
-			Console.WriteLine("Product Id  : " + obj.ProductId);
+	// Eg:    Product obj = new Product();	
+	// 		 obj.ProductId  =  int.Parse(Console.ReadLine());			
+	// 		Console.WriteLine("Product Id  : " + obj.ProductId);
 
 namespace ObjectOrientedProgramming
 {
