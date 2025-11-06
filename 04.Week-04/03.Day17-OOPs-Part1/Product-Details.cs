@@ -1,3 +1,16 @@
+// 2. Create a c# Program class to process product details:
+
+// 	a.  Details :	 product id, product name, unit price, quantity
+// 	b.  create required fields, properties
+// 	c.   perform read and write operations using properties	
+// 				-->  read data from user and assign to properties
+// 				-->  display the details using properties
+
+
+	Eg:    Product obj = new Product();	
+			 obj.ProductId  =  int.Parse(Console.ReadLine());			
+			Console.WriteLine("Product Id  : " + obj.ProductId);
+
 namespace ObjectOrientedProgramming
 {
 
